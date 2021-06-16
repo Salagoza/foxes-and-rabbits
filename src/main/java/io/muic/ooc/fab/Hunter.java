@@ -1,9 +1,9 @@
 package io.muic.ooc.fab;
 
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
-public class Fox extends Animal {
+public class Hunter extends Animal {
     // Characteristics shared by all foxes (class variables).
 
     private int foodLevel;
@@ -65,11 +65,11 @@ public class Fox extends Animal {
         while (it.hasNext()) {
             Location where = it.next();
             Object animal = field.getObjectAt(where);
-            if (animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit) animal;
-                if (rabbit.isAlive()) {
-                    rabbit.setDead();
-                    foodLevel = ANIMAL_FOOD_VALUE;
+            if (animal instanceof Animal) {
+                Animal animals = (Animal) animal;
+                if (animals.isAlive()) {
+                    animals.setDead();
+                    foodLevel = animals.getFoodLevel();
                     return where;
                 }
             }
@@ -78,20 +78,27 @@ public class Fox extends Animal {
     }
 
     @Override
-    public int getMaxAge() { return 150; }
+    public int getMaxAge() { return Integer.MAX_VALUE; }
 
     @Override
-    protected double getBreedingProbability() { return 0.08; }
+    protected double getBreedingProbability() { return 0; }
 
     @Override
-    protected int getMaxLitterSize() { return 2; }
+    protected int getMaxLitterSize() { return 0; }
 
     @Override
-    protected int getBreedingAge() { return 15; }
+    protected int getBreedingAge() { return 0; }
 
     @Override
-    public int getFoodLevel() { return foodLevel;
+    public int getFoodLevel() { return 0; }
+
+    @Override
+    protected void setDead(){
+        setAlive(true);
     }
-
+    @Override
+    protected void incrementAge(){
+        age++;
+    }
 
 }

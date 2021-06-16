@@ -1,14 +1,15 @@
 package io.muic.ooc.fab;
 
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
-public class Fox extends Animal {
-    // Characteristics shared by all foxes (class variables).
+public class Tiger extends Animal {
+    // Characteristics shared by all tigers (class variables).
 
     private int foodLevel;
+
     /**
-     * Create a fox. A fox can be created as a new born (age zero and not
+     * Create a Tiger. A fox can be created as a new born (age zero and not
      * hungry) or with a random age and food level.
      *  @param randomAge If true, the fox will have random age and hunger level.
      * @param field The field currently occupied.
@@ -65,11 +66,11 @@ public class Fox extends Animal {
         while (it.hasNext()) {
             Location where = it.next();
             Object animal = field.getObjectAt(where);
-            if (animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit) animal;
-                if (rabbit.isAlive()) {
-                    rabbit.setDead();
-                    foodLevel = ANIMAL_FOOD_VALUE;
+            if (animal instanceof Rabbit || animal instanceof Fox) {
+                Animal animals = (Animal) animal;
+                if (animals.isAlive()) {
+                    animals.setDead();
+                    foodLevel = animals.getFoodLevel();
                     return where;
                 }
             }
@@ -78,20 +79,18 @@ public class Fox extends Animal {
     }
 
     @Override
-    public int getMaxAge() { return 150; }
+    public int getMaxAge() { return 200; }
 
     @Override
-    protected double getBreedingProbability() { return 0.08; }
+    protected double getBreedingProbability() { return 0.04; }
 
     @Override
     protected int getMaxLitterSize() { return 2; }
 
     @Override
-    protected int getBreedingAge() { return 15; }
+    protected int getBreedingAge() { return 30; }
 
     @Override
-    public int getFoodLevel() { return foodLevel;
-    }
-
+    public int getFoodLevel() { return foodLevel; }
 
 }
